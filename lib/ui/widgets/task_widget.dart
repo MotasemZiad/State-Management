@@ -10,7 +10,7 @@ class TaskWidget extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    final todoProvider = Provider.of<TodoProvider>(context);
+    final todoProvider = Provider.of<TodoProvider>(context, listen: false);
     return Card(
       elevation: 3.0,
       color: taskModel.isComplete ? Colors.green : Colors.red,

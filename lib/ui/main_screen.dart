@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:state_management/providers/todo_provider.dart';
+import 'package:state_management/providers/theme_provider.dart';
 import 'package:state_management/ui/screens/all_tasks_screen.dart';
 import 'package:state_management/ui/screens/complete_tasks_screen.dart';
 import 'package:state_management/ui/screens/incomplete_tasks_screen.dart';
@@ -9,7 +9,7 @@ import 'package:state_management/ui/screens/new_task_screen.dart';
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final todoProvider = Provider.of<TodoProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -29,16 +29,26 @@ class MainScreen extends StatelessWidget {
             ],
             isScrollable: true,
           ),
+          actions: [
+            Switch(
+              value: themeProvider.themeData == ThemeData.light(),
+              onChanged: (value) {
+                if (value) {
+                  themeProvider.setThemeData(AppThemeMode.light);
+                } else {
+                  themeProvider.setThemeData(AppThemeMode.dark);
+                }
+              },
+              activeThumbImage: AssetImage('assets/images/sun.png'),
+              inactiveThumbImage: AssetImage('assets/images/moon.png'),
+            ),
+          ],
         ),
-        body: todoProvider.allTasks == null
-            ? Center(
-                child: Text('No Tasks has been added yet'),
-              )
-            : TabBarView(children: [
-                AllTasksScreen(),
-                CompleteTasksScreen(),
-                InCompleteTasksScreen(),
-              ]),
+        body: TabBarView(children: [
+          AllTasksScreen(),
+          CompleteTasksScreen(),
+          InCompleteTasksScreen(),
+        ]),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             showModalBottomSheet(
