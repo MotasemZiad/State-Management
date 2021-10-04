@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:state_management/models/task_model.dart';
 import 'package:state_management/providers/todo_provider.dart';
 import 'package:state_management/ui/widgets/task_widget.dart';
+import 'package:state_management/utils/constants.dart';
 
 class InCompleteTasksScreen extends StatelessWidget {
   @override
@@ -17,6 +18,7 @@ class InCompleteTasksScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
+                    color: Theme.of(context).accentColor,
                   ),
                   textAlign: TextAlign.center,
                 ),

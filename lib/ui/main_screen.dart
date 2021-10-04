@@ -7,9 +7,7 @@ import 'package:state_management/ui/screens/incomplete_tasks_screen.dart';
 import 'package:state_management/ui/screens/new_task_screen.dart';
 
 class MainScreen extends StatelessWidget {
-  @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -30,17 +28,19 @@ class MainScreen extends StatelessWidget {
             isScrollable: true,
           ),
           actions: [
-            Switch(
-              value: themeProvider.themeData == ThemeData.light(),
-              onChanged: (value) {
-                if (value) {
-                  themeProvider.setThemeData(AppThemeMode.light);
-                } else {
-                  themeProvider.setThemeData(AppThemeMode.dark);
-                }
-              },
-              activeThumbImage: AssetImage('assets/images/sun.png'),
-              inactiveThumbImage: AssetImage('assets/images/moon.png'),
+            Consumer<ThemeProvider>(
+              builder: (context, themeProvider, child) => Switch(
+                value: themeProvider.themeData == ThemeData.light(),
+                onChanged: (value) {
+                  if (value) {
+                    themeProvider.setThemeData(AppThemeMode.light);
+                  } else {
+                    themeProvider.setThemeData(AppThemeMode.dark);
+                  }
+                },
+                activeThumbImage: AssetImage('assets/images/sun.png'),
+                inactiveThumbImage: AssetImage('assets/images/moon.png'),
+              ),
             ),
           ],
         ),

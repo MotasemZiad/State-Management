@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:state_management/models/task_model.dart';
+import 'package:state_management/providers/theme_provider.dart';
 import 'package:state_management/providers/todo_provider.dart';
-import 'package:state_management/utils/constants.dart';
 
 class NewTaskScreen extends StatefulWidget {
   @override
@@ -33,11 +33,11 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text(
+                Text(
                   'Add Task',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: Theme.of(context).accentColor,
                     fontSize: 28.0,
                     fontWeight: FontWeight.bold,
                   ),
@@ -75,62 +75,56 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                   ),
                   autocorrect: true,
                 ),
-                Checkbox(
-                  value: isChecked,
-                  onChanged: (value) {
-                    isChecked = value;
-                    setState(() {});
-                  },
-                  activeColor: Colors.blue,
-                  fillColor: MaterialStateProperty.all(Colors.blue),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Completed',
+                      style: TextStyle(
+                        color: Theme.of(context).accentColor,
+                      ),
+                    ),
+                    Checkbox(
+                      value: isChecked,
+                      onChanged: (value) {
+                        isChecked = value;
+                        setState(() {});
+                      },
+                      fillColor: MaterialStateProperty.all(
+                        Theme.of(context).accentColor,
+                      ),
+                    ),
+                  ],
                 ),
                 Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 62.0),
-                    child: Selector<TodoProvider, TodoProvider>(
-                      selector: (_, provider) => provider,
-                      builder: (context, watch, child) {
-                        return ElevatedButton(
-                          onPressed: () {
-                            watch.insertTasks(TaskModel(
-                              taskName: taskName,
-                              taskDescription: taskDescription,
-                              isComplete: isChecked,
-                            ));
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(
-                            'Add',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w600,
-                            ),
+                  padding: const EdgeInsets.symmetric(horizontal: 62.0),
+                  child: Selector<TodoProvider, TodoProvider>(
+                    selector: (_, provider) => provider,
+                    builder: (context, watch, child) {
+                      return ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Theme.of(context).accentColor,
+                        ),
+                        onPressed: () {
+                          watch.insertTasks(TaskModel(
+                            taskName: taskName,
+                            taskDescription: taskDescription,
+                            isComplete: isChecked,
+                          ));
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'Add',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w600,
                           ),
-                        );
-                      },
-                    )
-                    // child: Consumer<TodoProvider>(
-                    //   builder: (context, watch, child) {
-                    //     return ElevatedButton(
-                    //       onPressed: () {
-                    //         watch.insertTasks(TaskModel(
-                    //           taskName: taskName,
-                    //           taskDescription: taskDescription,
-                    //           isComplete: isChecked,
-                    //         ));
-                    //         Navigator.of(context).pop();
-                    //       },
-                    //       child: Text(
-                    //         'Add',
-                    //         style: TextStyle(
-                    //           color: Colors.white,
-                    //           fontSize: 20.0,
-                    //           fontWeight: FontWeight.w600,
-                    //         ),
-                    //       ),
-                    //     );
-                    //   },
-                    ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ],

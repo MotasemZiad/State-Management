@@ -16,6 +16,7 @@ class AllTasksScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
+                    color: Theme.of(context).accentColor,
                   ),
                   textAlign: TextAlign.center,
                 ),
