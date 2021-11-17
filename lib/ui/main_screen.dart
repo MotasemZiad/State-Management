@@ -12,7 +12,7 @@ class MainScreen extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Todo-List'),
+          title: Text('Todoey'),
           bottom: TabBar(
             tabs: [
               Tab(

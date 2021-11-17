@@ -6,9 +6,9 @@ class TodoProvider extends ChangeNotifier {
   TodoProvider() {
     getAllTasks();
   }
-  List<TaskModel> allTasks;
-  List<TaskModel> completeTasks;
-  List<TaskModel> incompleteTasks;
+  List<TaskModel> allTasks = [];
+  List<TaskModel> completeTasks = [];
+  List<TaskModel> incompleteTasks = [];
 
   getAllTasks() async {
     allTasks = await DbHelper.dbHelper.getAllTasks();

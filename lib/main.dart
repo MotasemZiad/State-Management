@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<ThemeProvider>(
         builder: (context, value, child) => MaterialApp(
           debugShowCheckedModeBanner: false,
+          title: 'Todoey',
           theme: value.themeData,
           home: MainScreen(),
         ),
